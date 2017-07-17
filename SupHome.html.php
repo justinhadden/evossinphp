@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="centered">
-    <h1>EE - Evoss</h1>
+    <h1>SS - Evoss</h1>
 </div> 
 <form action="?" type="get">
 <div class="buttons">

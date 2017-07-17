@@ -5,13 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>EVOSS - EE</title>
-    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/theStyles.css">
-	<script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-    <script src="../js/myjs.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/theStyles.css">
+	<script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+    <script src="js/myjs.js"></script>
 </head>
 <body>
 <div class="centered">
@@ -20,10 +20,10 @@
 
 <form action="?" method="post">
     <h2 class="centered">Datepicker</h2>
-    <div class="centered">
+    <div class="centered form-group">
         <input id="datepicker" name="date"></input>
     </div>
-    
+
     <h2 class="centered">Selectmenu</h2>
         <div class="centered">
             <select id="selectmenu" name="jobcode">
@@ -93,5 +93,10 @@
         <input class="btn btn-primary btn-lg" type="submit" value="Submit">
     </div>
 </form>
+<?php
+    if(isset($_POST)){
+        print_r($_POST);
+    }
+?>
 </body>
 </html>
