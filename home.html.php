@@ -27,6 +27,9 @@
 <div class="buttons">
     <a type="button" class="buttons btn btn-primary">Employee Overtime Report</a>
 </div>
+<div class="buttons">
+    <a href="?supervisor" type="button" class="buttons btn btn-primary">Supervisor Screens</a>
+</div>
 </div>
 </body>
 </html>
