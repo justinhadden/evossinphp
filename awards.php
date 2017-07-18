@@ -4,36 +4,42 @@ try
 {
 	
 	//Connect to db
-	$pdo = new PDO("mysql:host=localhost;dbname=evoss", "root", "");
+	$pdo = new PDO("mysql:host=localhost;dbname=justhrlm_EVOSS", "justhrlm_Justin", "grav1949");
 	$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e)
 {
+	$myfile = fopen("dbfile.txt", "w");
+	fwrite($myfile, $e);
 	exit();
 }
 
 try
 {
     $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate
-        FROM OvertimeNeed
-        WHERE OTDate >= CURDATE()+2";
+        FROM overtimeneed
+        WHERE OTDate >= CURDATE() + 2";
     $OTNeeds = $pdo->query($sql);    
 }
 catch(PDOException $e)
 {
+	$myfile = fopen("firstfile.txt", "w");
+	fwrite($myfile, $e);
 	exit();
 }
 
 try
 {
-    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',JobCode) AS EmpSubmission,SubmissionDate,EmpComment,EmpID,OTHours
-        FROM Employee,Submission
-        WHERE Employee.EmpID=Submission.EmpID
-        AND SubmissionDate >= CURDATE()+2";
+    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,SubmissionDate,EmpComment,employee.EmpID,OTHours
+        FROM employee,submission
+        WHERE employee.EmpID=submission.EmpID
+        AND SubmissionDate >= CURDATE() + 2";
     $OTSubmissions = $pdo->query($sql);    
 }
 catch(PDOException $e)
 {
+	$myfile = fopen("secondfile.txt", "w");
+	fwrite($myfile, $e);
 	exit();
 }
 
@@ -49,13 +55,15 @@ foreach($OTNeeds as $need)
             array_push($eligible, $submission);
         }
     }
+
     foreach($eligible as $employee)
     {
-        if(is_null($mostEligible))
+    	print_r($employee);
+        if(empty($mostEligible))
         {
             $mostEligible = $employee;
         }
-        elseif($employee['OTHours'] < $mostEligible["OTHours"]){
+        elseif($employee['OTHours'] < $mostEligible['OTHours']){
             $mostEligible = $employee;
         }
     }
@@ -64,19 +72,21 @@ foreach($OTNeeds as $need)
     {
         try
         {
-            $sql = "UPDATE OvertimeNeed SET
-                EmpID = :newempid
-                EmpComment = :newempcomment
-                WHERE :mosteligible = :need";
+            $sql = "UPDATE overtimeneed SET
+                EmpID = :newempid,
+                EmpComment = :newempcomment,
+                WHERE :mosteligible == :need";
             $statement = $pdo->prepare($sql);
             $statement->bindvalue(":newempid", $mostEligible['EmpID']);
             $statement->bindvalue(":newempcomment", $mostEligible['EmpComment']);
-            $statement->bindvaule(":mosteligible", $mostEligible['EmpSubmission']);
-            $statement->bindvalue(":need", $need["slot"]);
+            $statement->bindvalue(":mosteligible", $mostEligible['EmpSubmission']);
+            $statement->bindvalue(":need", $need["Slot"]);
             $statement->execute();
         }
         catch(PDOException $e)
         {
+            $myfile = fopen("theupdatefile.txt", "w");
+            fwrite($myfile, $e);
             exit();
         }
         
