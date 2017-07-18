@@ -9,8 +9,6 @@ try
 }
 catch(PDOException $e)
 {
-	$error = $e;
-	include "includes/error.html.php";
 	exit();
 }
 
@@ -23,14 +21,12 @@ try
 }
 catch(PDOException $e)
 {
-    $error = $e;
-	include "includes/error.html.php";
 	exit();
 }
 
 try
 {
-    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',JobCode) AS Submission,SubmissionDate,EmpID,OTHours
+    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',JobCode) AS EmpSubmission,SubmissionDate,EmpComment,EmpID,OTHours
         FROM Employee,Submission
         WHERE Employee.EmpID=Submission.EmpID
         AND SubmissionDate >= CURDATE()+2";
@@ -38,8 +34,6 @@ try
 }
 catch(PDOException $e)
 {
-    $error = $e;
-	include "includes/error.html.php";
 	exit();
 }
 
@@ -50,21 +44,44 @@ foreach($OTNeeds as $need)
 {
     foreach($OTSubmissions as $submission)
     {
-        if($submission['submission'] == $need['Slot'])
+        if($submission['EmpSubmission'] == $need['Slot'])
         {
             array_push($eligible, $submission);
         }
     }
     foreach($eligible as $employee)
     {
-        if($mostEligible == NULL)
+        if(is_null($mostEligible))
         {
             $mostEligible = $employee;
         }
         elseif($employee['OTHours'] < $mostEligible["OTHours"]){
             $mostEligible = $employee;
         }
-    } 
+    }
+
+    if(!is_null($mostEligible))
+    {
+        try
+        {
+            $sql = "UPDATE OvertimeNeed SET
+                EmpID = :newempid
+                EmpComment = :newempcomment
+                WHERE :mosteligible = :need";
+            $statement = $pdo->prepare($sql);
+            $statement->bindvalue(":newempid", $mostEligible['EmpID']);
+            $statement->bindvalue(":newempcomment", $mostEligible['EmpComment']);
+            $statement->bindvaule(":mosteligible", $mostEligible['EmpSubmission']);
+            $statement->bindvalue(":need", $need["slot"]);
+            $statement->execute();
+        }
+        catch(PDOException $e)
+        {
+            exit();
+        }
+        
+    }
+
 }
 
 
