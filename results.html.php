@@ -15,9 +15,9 @@
 	<h2><?php echo $_POST['date']." | ".$_POST['shiftnum']." | ".$_POST['jobcode'] ?></h2>
 	<table>
 		<tr>
-			<th>First 4</th>
-			<th>Full 8 <?php echo $ottotal; ?></th>
-			<th>Last 4</th>
+			<th>First 4 <?php echo $f4; ?></th>
+			<th>Full 8 <?php echo $f8; ?></th>
+			<th>Last 4 <?php echo $l4; ?></th>
 		</tr>
 		
 		<?php
@@ -56,7 +56,7 @@
 		
 	</table>
 
-	<form <?php echo "action='?otid=".$slotRow['ID']."'" ?> method="post">
+	<form <?php echo "action='?subdate=".$_POST['date']."&shift=".$_POST['shiftnum']."&jobcode=".$_POST['jobcode']."'"; ?> method="post">
 		<input type="text" name="empid">
 		<input class="btn btn-primary" type="submit" value="Submit">
 		<a href="?home" class="btn btn-primary">Home</a>

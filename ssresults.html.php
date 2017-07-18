@@ -15,9 +15,9 @@
 	<h2><?php echo $_POST['ssdate']." | ".$_POST['ssshiftnum']." | ".$_POST['ssjobcode'] ?></h2>
 	<table>
 		<tr>
-			<th>First 4</th>
-			<th>Full 8 <?php echo $ottotal; ?></th>
-			<th>Last 4</th>
+			<th>First 4 <?php echo $f4; ?></th>
+			<th>Full 8 <?php echo $f8; ?></th>
+			<th>Last 4 <?php echo $l4; ?></th>
 		</tr>
 		
 		<?php
@@ -56,9 +56,12 @@
 		
 	</table>
 
-<div class="buttons">
-    <a <?php echo "href='?date=".$_POST['ssdate']."?shiftnum=".$_POST['ssshiftnum']."?jobcode=".$_POST['ssjobcode']; ?> type="button" class="buttons btn btn-primary">Generate OT Need Here</a>
-</div>
+<form <?php echo "action='?date=".$_POST['ssdate']."&shift=".$_POST['ssshiftnum']."&jobcode=".$_POST['ssjobcode']."'"; ?> method="post">
+		<input type="text" name="supid">
+		<input type="text" name="otblock">
+		<input class="btn btn-primary" type="submit" value="Generated Need">
+		<a href="?home" class="btn btn-primary">Home</a>
+	</form>	
 
 </body>
 </html>
