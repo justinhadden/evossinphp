@@ -44,8 +44,10 @@ catch(PDOException $e)
 	exit();
 }
 
-
-print_r($OTNeeds);
+foreach($OTNeeds as $need)
+{
+    print_r($OTNeeds);
+}
 foreach($OTNeeds as $need)
 {
     $eligible = [];
@@ -53,8 +55,8 @@ foreach($OTNeeds as $need)
     $found = false;
     foreach($OTSubmissions as $submission)
     {
-    	print_r($submission);
-    	print_r($need);
+    	//print_r($submission);
+    	//print_r($need);
         if($submission['EmpSubmission'] == $need['Slot'])
         {
             array_push($eligible, $submission);
