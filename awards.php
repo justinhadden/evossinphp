@@ -53,19 +53,19 @@ foreach($OTNeeds as $need)
             fwrite($myfile, $e);
             exit();
         }
-        $hours = 0;
+        $hours = $submission["OTHours"];
         if($submission['OTBlock'] == 2)
         {
-            $hours = 4;
+            $hours += 4;
         }
         else 
         {
-            $hours = 8;    
+            $hours += 8;    
         }
         try
         {
             $sql = "UPDATE employee SET
-                OTHours = OTHours + :newhours
+                OTHours = :newhours
                 WHERE EmpID = :empid";
             $statement->bindvalue(":newhours", $hours);
             $statement->bindvalue(":empid", $mostEligible['EmpID']);
