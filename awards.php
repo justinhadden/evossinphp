@@ -46,7 +46,15 @@ catch(PDOException $e)
 
 foreach($OTNeeds as $need)
 {
-    print_r($need);
+    if($need['Slot'] == "2017-07-19-1-FPO")
+    {
+        print_r($need);
+
+        foreach($OTSubmissions as $submission)
+        {
+            print_r($submission);
+        }
+    }
     $eligible = [];
     $mostEligible = [];
     $found = false;
