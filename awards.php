@@ -18,7 +18,7 @@ try
 {
     $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate
         FROM overtimeneed
-        WHERE OTDate >= CURDATE() + 2";
+        WHERE OTDate <= CURDATE() + 2";
     $OTNeeds = $pdo->query($sql);    
 }
 catch(PDOException $e)
@@ -33,7 +33,7 @@ try
     $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,SubmissionDate,EmpComment,employee.EmpID,OTHours
         FROM employee,submission
         WHERE employee.EmpID=submission.EmpID
-        AND SubmissionDate >= CURDATE() + 2";
+        AND SubmissionDate <= CURDATE() + 2";
     $OTSubmissions = $pdo->query($sql);    
 }
 catch(PDOException $e)
@@ -43,22 +43,27 @@ catch(PDOException $e)
 	exit();
 }
 
-$eligible = [];
-$mostEligible = [];
+
 
 foreach($OTNeeds as $need)
 {
+    $eligible = [];
+    $mostEligible = [];
+    $found = false;
     foreach($OTSubmissions as $submission)
     {
+    	//print_r($submission);
+    	//print_r($need);
         if($submission['EmpSubmission'] == $need['Slot'])
         {
             array_push($eligible, $submission);
+            $found = true;
+            //print_r($eligible);
         }
     }
 
     foreach($eligible as $employee)
     {
-    	print_r($employee);
         if(empty($mostEligible))
         {
             $mostEligible = $employee;
@@ -68,14 +73,16 @@ foreach($OTNeeds as $need)
         }
     }
 
-    if(!is_null($mostEligible))
+    if($found)
     {
+    	//print_r($mostEligible);
+    	//print_r($need);
         try
         {
             $sql = "UPDATE overtimeneed SET
                 EmpID = :newempid,
-                EmpComment = :newempcomment,
-                WHERE :mosteligible == :need";
+                EmpComment = :newempcomment
+                WHERE :mosteligible = :need";
             $statement = $pdo->prepare($sql);
             $statement->bindvalue(":newempid", $mostEligible['EmpID']);
             $statement->bindvalue(":newempcomment", $mostEligible['EmpComment']);
@@ -89,6 +96,8 @@ foreach($OTNeeds as $need)
             fwrite($myfile, $e);
             exit();
         }
+        unset($eligible);
+        unset($mostEligible);
         
     }
 
