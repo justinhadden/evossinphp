@@ -28,7 +28,7 @@ foreach($OTNeeds as $need)
             {
                 $mostEligible = $employee;
             }
-            elseif($employee['OTHours'] < $mostEligible['OTHours']){
+            elseif(($employee['OTHoursWorked'] + $employee['OPOTHours']) < $mostEligible['OTHoursWorked'] + $mostEligible['OPOTHours']){
                 $mostEligible = $employee;
             }
         }
@@ -57,7 +57,7 @@ foreach($OTNeeds as $need)
         }
 
         //Calculate the emps new OTHours
-        $hours = $submission["OTHours"];
+        $hours = $submission["OTHoursWorked"];
         if($submission['OTBlock'] == 2)
         {
             $hours += 8;
@@ -71,7 +71,7 @@ foreach($OTNeeds as $need)
         try
         {
             $sql = "UPDATE employee SET
-                OTHours = :newhours
+                OTHoursWorked = :newhours
                 WHERE EmpID = :empid";
             $statement = $pdo->prepare($sql);    
             $statement->bindvalue(":newhours", $hours);
