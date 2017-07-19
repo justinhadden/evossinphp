@@ -91,7 +91,7 @@ foreach($OTNeeds as $need)
             $sql = "UPDATE submission SET
                 Awarded = 1
                 WHERE SubID = :subid";
-            $statement = $pdo-prepare($sql);
+            $statement = $pdo->prepare($sql);
             $statement->bindvalue(":subid", $mostEligible['SubID']);
             $statment-execute();
         }
