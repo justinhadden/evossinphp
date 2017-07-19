@@ -53,8 +53,8 @@ foreach($OTNeeds as $need)
     $found = false;
     foreach($OTSubmissions as $submission)
     {
-    	//print_r($submission);
-    	//print_r($need);
+    	print_r($submission);
+    	print_r($need);
         if($submission['EmpSubmission'] == $need['Slot'])
         {
             array_push($eligible, $submission);
