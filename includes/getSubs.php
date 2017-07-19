@@ -8,6 +8,7 @@ try
         SubmissionDate,EmpComment,employee.EmpID,OTHours,Shift,submission.JobCode,OTBlock,SubID
         FROM employee,submission
         WHERE employee.EmpID=submission.EmpID
+        AND Awarded != 1
         AND SubmissionDate <= CURDATE() + 2";
     $OTSubmissions = $pdo->query($sql);    
 }
