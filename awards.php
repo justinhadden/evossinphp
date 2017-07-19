@@ -63,14 +63,17 @@ foreach($OTNeeds as $need)
         }
     }
 
-    foreach($eligible as $employee)
+    if($found)
     {
-        if(empty($mostEligible))
+        foreach($eligible as $employee)
         {
-            $mostEligible = $employee;
-        }
-        elseif($employee['OTHours'] < $mostEligible['OTHours']){
-            $mostEligible = $employee;
+            if(empty($mostEligible))
+            {
+                $mostEligible = $employee;
+            }
+            elseif($employee['OTHours'] < $mostEligible['OTHours']){
+                $mostEligible = $employee;
+            }
         }
     }
 
