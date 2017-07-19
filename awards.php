@@ -58,7 +58,7 @@ foreach($OTNeeds as $need)
         {
             array_push($eligible, $submission);
             $found = true;
-            //print_r($eligible);
+            print_r("Found");
         }
     }
     //print_r($eligible);
