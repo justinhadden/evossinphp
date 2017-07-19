@@ -65,9 +65,9 @@ foreach($OTNeeds as $need)
         try
         {
             $sql = "UPDATE employee SET
-                OTHours = OTHours+:hours
+                OTHours = OTHours+:newhours
                 WHERE EmpID = :empid";
-            $statement->bindvalue(":hours", $hours);
+            $statement->bindvalue(":newhours", $hours);
             $statement->bindvalue(":empid", $mostEligible['EmpID']);
             $statement->execute();
         }
