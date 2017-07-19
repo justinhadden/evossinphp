@@ -5,7 +5,7 @@ include "includes/dbconnection.php";
 try
 {
     $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
-        SubmissionDate,EmpComment,employee.EmpID,OTHours,Shift,submission.JobCode
+        SubmissionDate,EmpComment,employee.EmpID,OTHours,Shift,submission.JobCode,OTBlock
         FROM employee,submission
         WHERE employee.EmpID=submission.EmpID
         AND SubmissionDate <= CURDATE() + 2";
