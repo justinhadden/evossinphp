@@ -1,18 +1,6 @@
 <?php
 
-try
-{
-	
-	//Connect to db
-	$pdo = new PDO("mysql:host=localhost;dbname=justhrlm_EVOSS", "justhrlm_Justin", "grav1949");
-	$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-}
-catch(PDOException $e)
-{
-	$myfile = fopen("dbfile.txt", "w");
-	fwrite($myfile, $e);
-	exit();
-}
+include "includes/dbconnection.php";
 
 try
 {
@@ -28,24 +16,9 @@ catch(PDOException $e)
 	exit();
 }
 
-try
-{
-    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
-        SubmissionDate,EmpComment,employee.EmpID,OTHours,Shift,submission.JobCode
-        FROM employee,submission
-        WHERE employee.EmpID=submission.EmpID
-        AND SubmissionDate <= CURDATE() + 2";
-    $OTSubmissions = $pdo->query($sql);    
-}
-catch(PDOException $e)
-{
-	$myfile = fopen("secondfile.txt", "w");
-	fwrite($myfile, $e);
-	exit();
-}
-
 foreach($OTNeeds as $need)
 {
+    include "includes/getSubs.php";
     if($need['Slot'] == "2017-07-19-1-FPO")
     {
         print_r($need);
