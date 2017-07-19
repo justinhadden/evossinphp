@@ -16,7 +16,7 @@ catch(PDOException $e)
 
 try
 {
-    $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate
+    $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode
         FROM overtimeneed
         WHERE OTDate <= CURDATE() + 2";
     $OTNeeds = $pdo->query($sql);    
@@ -30,7 +30,8 @@ catch(PDOException $e)
 
 try
 {
-    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,SubmissionDate,EmpComment,employee.EmpID,OTHours
+    $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
+        SubmissionDate,EmpComment,employee.EmpID,OTHours,Shift,submission.JobCode
         FROM employee,submission
         WHERE employee.EmpID=submission.EmpID
         AND SubmissionDate <= CURDATE() + 2";
@@ -82,12 +83,18 @@ foreach($OTNeeds as $need)
             $sql = "UPDATE overtimeneed SET
                 EmpID = :newempid,
                 EmpComment = :newempcomment
-                WHERE :mosteligible = :need";
+                WHERE :subdate = :needdate
+                AND :subshift = :needshift
+                AND :subjobcode = :needjobcode";
             $statement = $pdo->prepare($sql);
             $statement->bindvalue(":newempid", $mostEligible['EmpID']);
             $statement->bindvalue(":newempcomment", $mostEligible['EmpComment']);
-            $statement->bindvalue(":mosteligible", $mostEligible['EmpSubmission']);
-            $statement->bindvalue(":need", $need["Slot"]);
+            $statement->bindvalue(":subdate", $mostEligible['SubmissionDate']);
+            $statement->bindvalue(":needdate", $need["OTDate"]);
+            $statement->bindvalue(":subshift", $mostEligible["Shift"]);
+            $statement->bindvalue(":needshift", $need["Shift"]);
+            $statement->bindvalue(":subjobcode", $mostEligible["JobCode"]);
+            $statement->bindvalue(":needjobcode", $need["JobCode"]);
             $statement->execute();
         }
         catch(PDOException $e)
