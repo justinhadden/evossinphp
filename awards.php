@@ -93,7 +93,7 @@ foreach($OTNeeds as $need)
                 WHERE SubID = :subid";
             $statement = $pdo->prepare($sql);
             $statement->bindvalue(":subid", $mostEligible['SubID']);
-            $statment-execute();
+            $statement->execute();
         }
         catch(PDOException $e)
         {
