@@ -47,9 +47,6 @@ catch(PDOException $e)
 foreach($OTNeeds as $need)
 {
     print_r($need);
-}
-foreach($OTNeeds as $need)
-{
     $eligible = [];
     $mostEligible = [];
     $found = false;
