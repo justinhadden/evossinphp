@@ -83,7 +83,7 @@ foreach($OTNeeds as $need)
             $sql = "UPDATE overtimeneed SET
                 EmpID = :newempid,
                 EmpComment = :newempcomment
-                WHERE OTID = :needid";
+                WHERE OTNeedID = :needid";
             $statement = $pdo->prepare($sql);
             $statement->bindvalue(":newempid", $mostEligible['EmpID']);
             $statement->bindvalue(":newempcomment", $mostEligible['EmpComment']);
