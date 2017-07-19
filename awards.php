@@ -19,22 +19,13 @@ catch(PDOException $e)
 foreach($OTNeeds as $need)
 {
     include "includes/getSubs.php";
-    if($need['Slot'] == "2017-07-19-1-FPO")
-    {
-        print_r($need['Slot']);
 
-        foreach($OTSubmissions as $submission)
-        {
-            print_r($submission['EmpSubmission']);
-        }
-    }
     $eligible = [];
     $mostEligible = [];
     $found = false;
     foreach($OTSubmissions as $submission)
     {
-    	//print_r($submission);
-    	//print_r($need);
+    	print_r("-|-".$need['Slot']."---".$submission['EmpSubmission']);
         if($submission['EmpSubmission'] == $need['Slot'])
         {
             array_push($eligible, $submission);
