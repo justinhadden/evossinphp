@@ -16,7 +16,7 @@ catch(PDOException $e)
 
 try
 {
-    $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode
+    $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode,OTNeedID
         FROM overtimeneed
         WHERE OTDate <= CURDATE() + 2";
     $OTNeeds = $pdo->query($sql);    
@@ -83,18 +83,11 @@ foreach($OTNeeds as $need)
             $sql = "UPDATE overtimeneed SET
                 EmpID = :newempid,
                 EmpComment = :newempcomment
-                WHERE :subdate = :needdate
-                AND :subshift = :needshift
-                AND :subjobcode = :needjobcode";
+                WHERE OTID = :needid";
             $statement = $pdo->prepare($sql);
             $statement->bindvalue(":newempid", $mostEligible['EmpID']);
             $statement->bindvalue(":newempcomment", $mostEligible['EmpComment']);
-            $statement->bindvalue(":subdate", $mostEligible['SubmissionDate']);
-            $statement->bindvalue(":needdate", $need["OTDate"]);
-            $statement->bindvalue(":subshift", $mostEligible["Shift"]);
-            $statement->bindvalue(":needshift", $need["Shift"]);
-            $statement->bindvalue(":subjobcode", $mostEligible["JobCode"]);
-            $statement->bindvalue(":needjobcode", $need["JobCode"]);
+            $statement->bindvalue(":needid", $need["OTNeedID"]);
             $statement->execute();
         }
         catch(PDOException $e)
