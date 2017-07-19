@@ -53,6 +53,30 @@ foreach($OTNeeds as $need)
             fwrite($myfile, $e);
             exit();
         }
+        $hours = 0;
+        if($submission['OTBlock'] == 2)
+        {
+            $hours = 4;
+        }
+        else 
+        {
+            $hours = 8;    
+        }
+        try
+        {
+            $sql = "UPDATE employee SET
+                OTHours = OTHours+:hours
+                WHERE EmpID = :empid";
+            $statement->bindvalue(":hours", $hours);
+            $statement->bindvalue(":empid", $mostEligible['EmpID']);
+            $statement->execute();
+        }
+        catch(PDOException $e)
+        {
+            $myfile = fopen("theEmpupdatefile.txt", "w");
+            fwrite($myfile, $e);
+            exit();
+        }
         unset($eligible);
         unset($mostEligible);
         
