@@ -67,6 +67,7 @@ foreach($OTNeeds as $need)
             $sql = "UPDATE employee SET
                 OTHours = :newhours
                 WHERE EmpID = :empid";
+            $statement = $pdo->prepare($sql);    
             $statement->bindvalue(":newhours", $hours);
             $statement->bindvalue(":empid", $mostEligible['EmpID']);
             $statement->execute();
