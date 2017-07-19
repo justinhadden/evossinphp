@@ -12,15 +12,13 @@ foreach($OTNeeds as $need)
     $found = false;
     foreach($OTSubmissions as $submission)
     {
-    	print_r("-|-".$need['Slot']."---".$submission['EmpSubmission']);
         if($submission['EmpSubmission'] == $need['Slot'])
         {
             array_push($eligible, $submission);
             $found = true;
-            print_r("Found");
         }
     }
-    //print_r($eligible);
+
     if($found)
     {
         foreach($eligible as $employee)
@@ -37,8 +35,6 @@ foreach($OTNeeds as $need)
 
     if($found)
     {
-    	//print_r($mostEligible);
-    	//print_r($need);
         try
         {
             $sql = "UPDATE overtimeneed SET
