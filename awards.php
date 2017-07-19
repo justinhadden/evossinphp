@@ -2,10 +2,10 @@
 
 include "includes/dbconnection.php";
 include "includes/getNeeds.php";
-include "includes/getSubs.php";
 
 foreach($OTNeeds as $need)
 {
+    include "includes/getSubs.php";
 
     $eligible = [];
     $mostEligible = [];
