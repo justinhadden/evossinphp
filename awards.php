@@ -46,7 +46,7 @@ catch(PDOException $e)
 
 foreach($OTNeeds as $need)
 {
-    print_r($OTNeeds);
+    print_r($need);
 }
 foreach($OTNeeds as $need)
 {
