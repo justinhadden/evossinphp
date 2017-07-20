@@ -42,7 +42,7 @@ foreach($OTNeeds as $need)
     {
         foreach($OTSubmissions as $submission)
         {
-            if(concat($submission['SubmissionDate'],"-",$submission['Shift'],"-",$submission['JobCode']) == concat($need['OTDate'],"-",$need['Shift'],"-",$need['JobCode']))
+            if($submission['EmpSubmission'] == $need['Slot'])
             {
                 echo "Ding1\n";
                 if($employee['EmpID'] == $submission['EmpID'])
