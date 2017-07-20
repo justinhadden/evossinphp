@@ -1,7 +1,9 @@
 <?php
 
 
-$calDate = strtotime($argv[1]);
+$tempdate = strtotime($argv[1]);
+
+$calDate = date('Y-m-d',$tempdate);
 
 $shiftNum = $argv[2];
 
