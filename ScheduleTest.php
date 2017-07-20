@@ -16,16 +16,16 @@ $daysIntoRot = $calDiff % 28 + 1;
 
 if(floor($daysIntoRot) == 0)
 {
-    echo "This is A Shift";
+    echo "This is A Shift\n";
 }
 elseif(floor($daysIntoRot) == 1)
 {
-    echo "This is D shift";
+    echo "This is D shift\n";
 }
 elseif(floor($daysIntoRot) == 2)
 {
-    echo "This is C shift";
+    echo "This is C shift\n";
 }
 else {
-    echo "This is B Shift";
+    echo "This is B Shift\n";
 }
