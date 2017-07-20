@@ -6,7 +6,8 @@ CREATE TABLE Employee(
     Email VARCHAR(30) NOT NULL,
     ShiftCode CHAR(1) NOT NULL,
     JobCode CHAR(3) NOT NULL,
-    OTHours INT NOT NULL,
+    OTHoursWorked INT NOT NULL,
+    OPOTHours INT NOT NULL,
     ForcedOTHours INT NOT NULL,
     ForcedRefusals INT NOT NULL,
     GrantedRefusals INT NOT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE Submission(
     EmpComment TEXT(50),
     OTBlock TINYINT NOT NULL,
     TStamp TIMESTAMP NOT NULL,
+    Awarded TINYINT(1) NOT NULL,
     PRIMARY KEY(SubID),
     FOREIGN KEY(EmpID) REFERENCES Employee (EmpID) ON DELETE CASCADE
 )ENGINE=INNODB;
