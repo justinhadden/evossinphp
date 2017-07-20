@@ -56,7 +56,7 @@
 		
 	</table>
 
-	<form <?php echo "action='?subdate=".$_POST['date']."&shift=".$_POST['shiftnum']."&jobcode=".$_POST['jobcode']."'"; ?> method="post">
+	<form <?php echo "action='?subdate=".$_POST['date']."&shift=".$_POST['shiftnum']."&jobcode=".$_POST['jobcode']."&shiftcode=".$calShiftCode."'"; ?> method="post">
 		<input type="text" name="empid">
 		<input class="btn btn-primary" type="submit" value="Submit">
 		<a href="?home" class="btn btn-primary">Home</a>

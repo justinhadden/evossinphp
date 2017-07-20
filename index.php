@@ -11,31 +11,61 @@ if(isset($_GET['home']))
 
 if(isset($_POST['empid']))
 {
+	$valid = true;
 	try
 	{
-		$sql = "INSERT INTO submission SET 
-			EmpID = :newempid,
-			SubmissionDate = :newdate,
-			Shift = :newshift,
-			JobCode = :newjobcode,
-			EmpComment = :newcomment,
-			OTBlock = :newotblock,
-			TStamp = :newtstamp";
-		$statement = $pdo->prepare($sql);
-		$statement->bindvalue(":newempid", $_POST["empid"]);
-		$statement->bindvalue(":newdate", $_GET['subdate']);
-		$statement->bindvalue(":newshift", $_GET['shift']);
-		$statement->bindvalue(":newjobcode", $_GET['jobcode']);
-		$statement->bindvalue(":newcomment", "Relief");
-		$statement->bindvalue(":newotblock", 2);
-		$statement->bindvalue(":newtstamp", date('Y-m-d H:i:s'));
-		$statement->execute();
+		$statement = $pdo->prepare("SELECT ShiftCode
+			FROM employee
+			WHERE EmpID = '$_POST[empid]'");
+		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
-	catch(PDOExection $e)
+	catch(PDOException $e)
 	{
-		$error = "Could not submit this overtime";
+		$error = "Could not get employee ID and ShiftCode";
 		include "includes/error.html.php";
 		exit();
+	}
+
+	$empShiftCode;
+	foreach($results as $row)
+	{
+		$empShiftCode = $row['ShiftCode'];
+	}
+
+	if($_GET['shiftcode'] == $empShiftCode)
+	{
+		$error = "You are already working this shift.";
+		include "includes/error.html.php";
+		exit();
+	}
+	else
+	{
+		try
+		{
+			$sql = "INSERT INTO submission SET 
+				EmpID = :newempid,
+				SubmissionDate = :newdate,
+				Shift = :newshift,
+				JobCode = :newjobcode,
+				EmpComment = :newcomment,
+				OTBlock = :newotblock,
+				TStamp = :newtstamp";
+			$statement = $pdo->prepare($sql);
+			$statement->bindvalue(":newempid", $_POST["empid"]);
+			$statement->bindvalue(":newdate", $_GET['subdate']);
+			$statement->bindvalue(":newshift", $_GET['shift']);
+			$statement->bindvalue(":newjobcode", $_GET['jobcode']);
+			$statement->bindvalue(":newcomment", "Relief");
+			$statement->bindvalue(":newotblock", 2);
+			$statement->bindvalue(":newtstamp", date('Y-m-d H:i:s'));
+			$statement->execute();
+		}
+		catch(PDOExection $e)
+		{
+			$error = "Could not submit this overtime";
+			include "includes/error.html.php";
+			exit();
+		}
 	}
 }
 
