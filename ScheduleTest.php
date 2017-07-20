@@ -16,7 +16,7 @@ $daysIntoRot = $calDiff % 28 + 1;
 
 if(floor($daysIntoRot) == 0)
 {
-    echo "This is A Shift".
+    echo "This is A Shift";
 }
 elseif(floor($daysIntoRot) == 1)
 {
