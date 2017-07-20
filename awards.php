@@ -42,6 +42,8 @@ foreach($OTNeeds as $need)
     {
         foreach($OTSubmissions as $submission)
         {
+            print_r($submission['EmpSubmission']);
+            print_r($need['Slot']);
             if($submission['EmpSubmission'] == $need['Slot'])
             {
                 echo "Ding1\n";
