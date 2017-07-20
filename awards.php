@@ -57,10 +57,11 @@ foreach($OTNeeds as $need)
         }
     }
 
-    print_r($mostEligible);
+    
 
     if($found)
     {
+        print_r($mostEligible);
         /*
         //Update the overtimeNeed to show who is working it
         try
