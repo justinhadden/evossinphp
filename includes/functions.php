@@ -126,7 +126,7 @@ function getTodaysSubmissions()
 //Get the employees who could work the overtime
 function getEligibleEmployees($needJobCode, $needShiftCode)
 {
-
+    include "includes/dbconnection.php";
     try
     {
         $statement = $pdo->query("SELECT EmpID,ShiftCode,JobCode,OTHoursWorked,OPOTHours,DeptSeniority
