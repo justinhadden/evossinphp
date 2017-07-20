@@ -1,38 +1,42 @@
 <?php
 
 include "includes/dbconnection.php";
-include "includes/getNeeds.php";
+include "includes/functions.php";
+
+//These functions are explained in the includes/functions.php script
+$OTNeeds = getTodaysNeeds();
+$OTSubmissions = getTodaysSubmissions();
+$Employees = getAllEmployees();
 
 //Match OTNeeds with Submissions
 foreach($OTNeeds as $need)
 {
-    include "includes/getSubs.php";
-
     $eligible = [];
-    $mostEligible = [];
+    $mostEligible;
     $found = false;
-    foreach($OTSubmissions as $submission)
-    {
-        if($submission['EmpSubmission'] == $need['Slot'])
-        {
-            array_push($eligible, $submission);
-            $found = true;
-        }
-    }
+    
+    $needShiftCode = calSchedule($need['OTDate'], $need['Shift']);
 
-    if($found)
+    $eligibleEmps = getEligibleEmployees($need['JobCode'], $needShiftCode);
+
+    print_r($eligibleEmps);
+    foreach($eligibleEmps as $key => $employee)
     {
-        foreach($eligible as $employee)
+        foreach($OTSubmissions as $submissions)
         {
-            if(empty($mostEligible))
+            if($submission['EmpID'] == $employee['EmpID'])
             {
-                $mostEligible = $employee;
-            }
-            elseif(($employee['OTHoursWorked'] + $employee['OPOTHours']) < $mostEligible['OTHoursWorked'] + $mostEligible['OPOTHours']){
-                $mostEligible = $employee;
+                if($submission['Shift'] == $need['Shift'])
+                {
+                    if($submission['Awarded'] == 1)
+                    {
+                        unset($eligibleEmps[$key]);
+                    }
+                }
             }
         }
     }
+    print_r($eligibleEmps);
 
     if($found)
     {
@@ -104,10 +108,8 @@ foreach($OTNeeds as $need)
 
         //Unset arrays
         unset($eligible);
-        unset($mostEligible);
-        
+        unset($mostEligible);      
     }
-
 }
 
 
