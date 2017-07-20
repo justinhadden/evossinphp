@@ -50,6 +50,7 @@ foreach($OTNeeds as $need)
                     if(!$found)
                     {
                         $mostEligible = $employee;
+                        echo "Ding!\n";
                     }
                     $found = true;
                 }
