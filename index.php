@@ -1,18 +1,7 @@
 <?php
 
-try
-{
-	
-	//Connect to db
-	$pdo = new PDO("mysql:host=localhost;dbname=evoss", "root", "");
-	$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-}
-catch(PDOException $e)
-{
-	$error = $e;
-	include "includes/error.html.php";
-	exit();
-}
+include "includes/dbconnection.php";
+include "includes/calculateSchedule.php";
 
 if(isset($_GET['home']))
 {
@@ -209,6 +198,8 @@ if(isset($_POST['date'])){
 		}
 		
 	}
+
+	$calShiftCode = calSchedule($_POST["date"], $_POST["shiftnum"]);
 
 	include "results.html.php";
 

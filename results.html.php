@@ -12,7 +12,7 @@
 	<script src="./js/myjs.js"></script>
 </head>
 <body>
-	<h2><?php echo $_POST['date']." | ".$_POST['shiftnum']." | ".$_POST['jobcode'] ?></h2>
+	<h2><?php echo $_POST['date']." | ".$_POST['shiftnum']." | ".$_POST['jobcode']." | ".$calShiftCode ?></h2>
 	<table>
 		<tr>
 			<th>First 4 <?php echo $f4; ?></th>
