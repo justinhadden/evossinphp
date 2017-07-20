@@ -1,11 +1,10 @@
 <?php
 
-$caldate = new DateTime($argv[1]);
+$calDate = new DateTime($argv[1]);
 $shiftNum = $argv[2];
 
 //Reference date for calculating ShiftCode
 $baseDate = new DateTime("2016-01-20");
-$calDate = new DateTime($date);
 //Get difference between argument date and reference date
 $calDiff = $calDate->diff($baseDate)->format("%a");
 
