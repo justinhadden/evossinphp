@@ -1,45 +1,47 @@
 <?php
 
 
+//Get Args from script parameters
 $calDate = new DateTime($argv[1]);
-
 $shiftNum = $argv[2];
 
+//Reference date for calculating ShiftCode
 $baseDate = new DateTime("2016-01-20");
 
+//Get difference between argument date and reference date
 $calDiff = $calDate->diff($baseDate)->format("%a");
 
-echo "Number of days since 2016-01-20: ".$calDiff."\n";
-echo "Shift to evaluate: ".$shiftNum."\n";
-
+//Get day into shift schedule rotation
 $daysIntoRot = ($calDiff % 28);
 
+//Determine who is working first shift
 if($daysIntoRot <= 6)
 {
+    //From first shift determine second and third
     if($shiftNum == "1")
     {
-        echo "This is A Shift\n";
+        echo "A\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            echo "This is C Shift\n";
+            echo "C\n";
         }
         else
         {
-            echo "This is B Shift\n";
+            echo "B\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            echo "This is D Shift\n";
+            echo "D\n";
         }
         else
         {
-            echo "This is C Shift\n";
+            echo "C\n";
         }
     }
 }
@@ -47,28 +49,28 @@ elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
 {
      if($shiftNum == "1")
     {
-        echo "This is D Shift\n";
+        echo "D\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            echo "This is B Shift\n";
+            echo "B\n";
         }
         else
         {
-            echo "This is A Shift\n";
+            echo "A\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            echo "This is C Shift\n";
+            echo "C\n";
         }
         else
         {
-            echo "This is B Shift\n";
+            echo "B\n";
         }
     }
 }
@@ -76,28 +78,28 @@ elseif($daysIntoRot <= 20 && $daysIntoRot > 13)
 {
      if($shiftNum == "1")
     {
-        echo "This is C Shift\n";
+        echo "C\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            echo "This is A Shift\n";
+            echo "A";
         }
         else
         {
-            echo "This is D Shift\n";
+            echo "D\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            echo "This is B Shift\n";
+            echo "B\n";
         }
         else
         {
-            echo "This is A Shift\n";
+            echo "A\n";
         }
     }
 }
@@ -105,28 +107,28 @@ else
 {
     if($shiftNum == "1")
     {
-        echo "This is B Shift\n";
+        echo "B\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            echo "This is D Shift\n";
+            echo "D\n";
         }
         else
         {
-            echo "This is C Shift\n";
+            echo "C\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            echo "This is A Shift\n";
+            echo "A\n";
         }
         else
         {
-            echo "This is D Shift\n";
+            echo "D\n";
         }
     }
 }
