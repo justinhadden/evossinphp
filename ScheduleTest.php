@@ -9,7 +9,7 @@ $baseDate = new DateTime("2016-01-20");
 
 $calDiff = $calDate->diff($baseDate)->format("%a");
 
-echo "Number of days since 2017-01-18: ".$calDiff."\n";
+echo "Number of days since 2016-01-20: ".$calDiff."\n";
 echo "Shift to evaluate: ".$shiftNum."\n";
 
 $daysIntoRot = ($calDiff % 28) / 7;
