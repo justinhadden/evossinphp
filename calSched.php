@@ -27,7 +27,7 @@ if($daysIntoRot <= 6)
         }
         else
         {
-            echo "C\n";
+            echo "B\n";
         }
     }
     else
@@ -52,7 +52,7 @@ elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
     {
         if(($daysIntoRot % 7) == 0)
         {
-            echo "C\n";
+            echo "B\n";
         }
         else
         {
@@ -67,7 +67,7 @@ elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
         }
         else
         {
-            echo "C\n";
+            echo "B\n";
         }
     }
 }
@@ -92,7 +92,7 @@ elseif($daysIntoRot <= 20 && $daysIntoRot > 13)
     {
         if(($daysIntoRot % 7) < 2)
         {
-            echo "C\n";
+            echo "B\n";
         }
         else
         {
