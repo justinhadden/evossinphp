@@ -17,28 +17,28 @@ if($daysIntoRot <= 6)
     //From first shift determine second and third
     if($shiftNum == "1")
     {
-        return "A";
+        echo "A\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            return "C";
+            echo "C\n";
         }
         else
         {
-            return "B";
+            echo "C\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            return "D";
+            echo "D\n";
         }
         else
         {
-            return "C";
+            echo "C\n";
         }
     }
 }
@@ -46,28 +46,28 @@ elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
 {
     if($shiftNum == "1")
     {
-        return "D";
+        echo "D\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            return "B";
+            echo "C\n";
         }
         else
         {
-            return "A";
+            echo "A\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            return "C";
+            echo "C\n";
         }
         else
         {
-            return "B";
+            echo "C\n";
         }
     }
 }
@@ -75,28 +75,28 @@ elseif($daysIntoRot <= 20 && $daysIntoRot > 13)
 {
     if($shiftNum == "1")
     {
-        return "C";
+        echo "C\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            return "A";
+            echo "A\n";
         }
         else
         {
-            return "D";
+            echo "D\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            return "B";
+            echo "C\n";
         }
         else
         {
-            return "A";
+            echo "A\n";
         }
     }
 }
@@ -104,28 +104,28 @@ else
 {
     if($shiftNum == "1")
     {
-        return "B";
+        echo "B\n";
     }
     elseif($shiftNum == "2")
     {
         if(($daysIntoRot % 7) == 0)
         {
-            return "D";
+            echo "D\n";
         }
         else
         {
-            return "C";
+            echo "C\n";
         }
     }
     else
     {
         if(($daysIntoRot % 7) < 2)
         {
-            return "A";
+            echo "A\n";
         }
         else
         {
-            return "D";
+            echo "D\n";
         }
     }
 }
