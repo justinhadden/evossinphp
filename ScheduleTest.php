@@ -14,9 +14,7 @@ echo "Shift to evaluate: ".$shiftNum."\n";
 
 $daysIntoRot = ($calDiff % 28);
 
-$shiftCode = $daysIntoRot / 7;
-
-if(floor($shiftCode) == 0)
+if($daysIntoRot <= 6)
 {
     if($shiftNum == "1")
     {
@@ -45,7 +43,7 @@ if(floor($shiftCode) == 0)
         }
     }
 }
-elseif(floor($shiftCode) == 1)
+elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
 {
      if($shiftNum == "1")
     {
@@ -74,7 +72,7 @@ elseif(floor($shiftCode) == 1)
         }
     }
 }
-elseif(floor($shiftCode) == 2)
+elseif($daysIntoRot <= 20 && $daysIntoRot > 13)
 {
      if($shiftNum == "1")
     {
