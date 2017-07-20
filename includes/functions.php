@@ -3,7 +3,7 @@
 //Returns all supervisors
 function getAllSupervisors()
 {
-    include "includes/dbconnetion.php";
+    include "includes/dbconnection.php";
     try
     {
         $statement = $pdo->query("SELECT SupID,FirstName,LastName,Phone,Email,LastLogin
@@ -23,7 +23,7 @@ function getAllSupervisors()
 //Returns all employees
 function getAllEmployees()
 {
-    include "includes/dbconnetion.php";
+    include "includes/dbconnection.php";
     try
     {
         $statement = $pdo->query("SELECT EmpID,FirstName,LastName,Phone,Email,ShiftCode,JobCode,OTHoursWorked,OPOTHours,ForcedOTHours,
@@ -44,7 +44,7 @@ function getAllEmployees()
 //Returns all overtime needs
 function getAllNeeds()
 {
-    include "includes/dbconnetion.php";
+    include "includes/dbconnection.php";
     try
     {
         $statement = $pdo->query("SELECT OTNeedID,SupID,OTDate,Shift,JobCode,OTBock,TStamp,EmpID,EmpComment
@@ -64,7 +64,7 @@ function getAllNeeds()
 //Returns all submissions
 function getAllSubmissions()
 {
-    include "includes/dbconnetion.php";
+    include "includes/dbconnection.php";
     try
     {
         $statement = $pdo->query("SELECT SubID,EmpID,SubmissionDate,Shift,JobCode,EmpComment,OTBlock,TStamp,Awarded
