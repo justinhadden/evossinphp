@@ -22,7 +22,7 @@ foreach($OTNeeds as $need)
     print_r($eligibleEmps);
     foreach($eligibleEmps as $key => $employee)
     {
-        foreach($OTSubmissions as $submissions)
+        foreach($OTSubmissions as $submission)
         {
             if($submission['EmpID'] == $employee['EmpID'])
             {
@@ -38,8 +38,30 @@ foreach($OTNeeds as $need)
     }
     print_r($eligibleEmps);
 
+    $EmpsSubmitted = [];
+
+    foreach($eligibleEmps as $employee)
+    {
+        foreach($OTSubmissions as $submission)
+        {
+            if(concat($submission['SubmissionDate'],"-",$submission['Shift'],"-",$submission['JobCode']) == concat($need['OTDate'],"-",$need['Shift'],"-",$need['JobCode']))
+            {
+                if($employee['EmpID'] == $submission['EmpID'])
+                {
+                    array_push($empsSubmitted, $employee);
+                    if(!$found)
+                    {
+                        $mostEligible = $employee;
+                    }
+                    $found = true;
+                }
+            }
+        }
+    }
+
     if($found)
     {
+        /*
         //Update the overtimeNeed to show who is working it
         try
         {
@@ -87,7 +109,7 @@ foreach($OTNeeds as $need)
             $myfile = fopen("theEmpupdatefile.txt", "w");
             fwrite($myfile, $e);
             exit();
-        }
+        }*/
 
         //Update the submission to indicate that it has been awarded
         try
