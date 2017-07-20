@@ -37,7 +37,7 @@ foreach($OTNeeds as $need)
     }
 
     $EmpsSubmitted = [];
-
+    print_r($eligibleEmps);
     foreach($eligibleEmps as $employee)
     {
         foreach($OTSubmissions as $submission)
