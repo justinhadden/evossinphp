@@ -7,9 +7,9 @@ $calDate = date('Y-m-d',$tempdate);
 
 $shiftNum = $argv[2];
 
-$baseDate = date('Y-m-d', "2017-01-18");
+$baseDate = strtotime("2017-01-18");
 
-$datediff = $baseDate - $calDate;
+$datediff = $baseDate - $tempDate;
 
 $calDiff = floor($datediff / (60 * 60 * 24));
 
