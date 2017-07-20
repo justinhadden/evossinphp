@@ -13,7 +13,7 @@ if(isset($_POST['empid']))
 {
 	try
 	{
-		$sql = "INSERT INTO Submission SET 
+		$sql = "INSERT INTO submission SET 
 			EmpID = :newempid,
 			SubmissionDate = :newdate,
 			Shift = :newshift,
@@ -62,10 +62,10 @@ if(isset($_POST['ssdate']))
 	try
 	{
 		$statement = $pdo->query("SELECT concat(FirstName,' ',LastName) as Name,OTBlock 
-			FROM Employee,Submission 
-			WHERE Employee.EmpID=Submission.EmpID  
+			FROM employee,submission 
+			WHERE employee.EmpID=submission.EmpID  
 			AND SubmissionDate = '$_POST[ssdate]' 
-			AND Submission.JobCode = '$_POST[ssjobcode]' 
+			AND submission.JobCode = '$_POST[ssjobcode]' 
 			AND Shift = '$_POST[ssshiftnum]'");
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -79,9 +79,9 @@ if(isset($_POST['ssdate']))
 	try
 	{
 		$statement = $pdo->query("SELECT OTBlock
-			FROM OvertimeNeed
+			FROM overtimeneed
 			WHERE OTDate = '$_POST[ssdate]' 
-			AND OvertimeNeed.JobCode = '$_POST[ssjobcode]' 
+			AND overtimeneed.JobCode = '$_POST[ssjobcode]' 
 			AND Shift = '$_POST[ssshiftnum]'");
 		$slotResults = $statement->fetchAll(PDO::FETCH_ASSOC);	
 	}
@@ -121,7 +121,7 @@ if(isset($_GET['date']))
 {
 	try
 	{
-		$sql = "INSERT INTO OvertimeNeed SET 
+		$sql = "INSERT INTO overtimeneed SET 
 			SupID = :newsupid,
 			OTDate = :newotdate,
 			Shift = :newshift,
@@ -149,10 +149,10 @@ if(isset($_POST['date'])){
 	try
 	{
 		$statement = $pdo->query("SELECT concat(FirstName,' ',LastName) as Name,OTBlock 
-			FROM Employee,Submission 
-			WHERE Employee.EmpID=Submission.EmpID  
+			FROM employee,submission 
+			WHERE employee.EmpID=submission.EmpID  
 			AND SubmissionDate = '$_POST[date]' 
-			AND Submission.JobCode = '$_POST[jobcode]' 
+			AND submission.JobCode = '$_POST[jobcode]' 
 			AND Shift = '$_POST[shiftnum]'");
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -166,9 +166,9 @@ if(isset($_POST['date'])){
 	try
 	{
 		$statement = $pdo->query("SELECT OTBlock
-			FROM OvertimeNeed
+			FROM overtimeneed
 			WHERE OTDate = '$_POST[date]' 
-			AND OvertimeNeed.JobCode = '$_POST[jobcode]' 
+			AND overtimeneed.JobCode = '$_POST[jobcode]' 
 			AND Shift = '$_POST[shiftnum]'");
 		$slotResults = $statement->fetchAll(PDO::FETCH_ASSOC);	
 	}
