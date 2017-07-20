@@ -44,13 +44,15 @@ foreach($OTNeeds as $need)
         {
             if(concat($submission['SubmissionDate'],"-",$submission['Shift'],"-",$submission['JobCode']) == concat($need['OTDate'],"-",$need['Shift'],"-",$need['JobCode']))
             {
+                echo "Ding1\n";
                 if($employee['EmpID'] == $submission['EmpID'])
                 {
+                    echo "Ding2\n";
                     array_push($empsSubmitted, $employee);
                     if(!$found)
                     {
                         $mostEligible = $employee;
-                        echo "Ding!\n";
+                        echo "Ding3\n";
                     }
                     $found = true;
                 }
