@@ -22,7 +22,7 @@ if($daysIntoRot <= 6)
     }
     elseif($shiftNum == "2")
     {
-        if($daysIntoRot == 0)
+        if(($daysIntoRot % 7) == 0)
         {
             echo "This is C Shift\n";
         }
@@ -33,7 +33,7 @@ if($daysIntoRot <= 6)
     }
     else
     {
-        if($daysIntoRot < 2)
+        if(($daysIntoRot % 7) < 2)
         {
             echo "This is D Shift\n";
         }
@@ -51,7 +51,7 @@ elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
     }
     elseif($shiftNum == "2")
     {
-        if($daysIntoRot == 0)
+        if(($daysIntoRot % 7) == 0)
         {
             echo "This is B Shift\n";
         }
@@ -62,7 +62,7 @@ elseif($daysIntoRot <= 13 && $daysIntoRot > 6)
     }
     else
     {
-        if($daysIntoRot < 2)
+        if(($daysIntoRot % 7) < 2)
         {
             echo "This is C Shift\n";
         }
@@ -80,7 +80,7 @@ elseif($daysIntoRot <= 20 && $daysIntoRot > 13)
     }
     elseif($shiftNum == "2")
     {
-        if($daysIntoRot == 0)
+        if(($daysIntoRot % 7) == 0)
         {
             echo "This is A Shift\n";
         }
@@ -91,7 +91,7 @@ elseif($daysIntoRot <= 20 && $daysIntoRot > 13)
     }
     else
     {
-        if($daysIntoRot < 2)
+        if(($daysIntoRot % 7) < 2)
         {
             echo "This is B Shift\n";
         }
@@ -109,7 +109,7 @@ else
     }
     elseif($shiftNum == "2")
     {
-        if($daysIntoRot == 0)
+        if(($daysIntoRot % 7) == 0)
         {
             echo "This is D Shift\n";
         }
@@ -120,7 +120,7 @@ else
     }
     else
     {
-        if($daysIntoRot < 2)
+        if(($daysIntoRot % 7) < 2)
         {
             echo "This is A Shift\n";
         }
