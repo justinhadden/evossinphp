@@ -1,0 +1,5 @@
+exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'justhrlm_Justin'@'localhost' (using password: YES)' in C:\wamp64\www\EVOSStest\includes\dbconnection.php:7
+Stack trace:
+#0 C:\wamp64\www\EVOSStest\includes\dbconnection.php(7): PDO->__construct('mysql:host=loca...', 'justhrlm_Justin', 'grav1949')
+#1 C:\wamp64\www\EVOSStest\index.php(3): include('C:\\wamp64\\www\\E...')
+#2 {main}

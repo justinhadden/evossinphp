@@ -1,7 +1,7 @@
 <?php
 
 include "includes/dbconnection.php";
-include "includes/calculateSchedule.php";
+include "includes/functions.php";
 
 if(isset($_GET['home']))
 {
@@ -14,7 +14,7 @@ if(isset($_POST['empid']))
 	$valid = true;
 	try
 	{
-		$statement = $pdo->prepare("SELECT ShiftCode
+		$statement = $pdo->query("SELECT ShiftCode,JobCode
 			FROM employee
 			WHERE EmpID = '$_POST[empid]'");
 		$results = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -25,16 +25,21 @@ if(isset($_POST['empid']))
 		include "includes/error.html.php";
 		exit();
 	}
-
-	$empShiftCode;
 	foreach($results as $row)
 	{
 		$empShiftCode = $row['ShiftCode'];
+		$empJobCode = $row['JobCode'];
 	}
 
-	if($_GET['shiftcode'] == $empShiftCode)
+	if($_GET['shiftcode'] == $empShiftCode || $_GET['jobcode'] != $empJobCode)
 	{
-		$error = "You are already working this shift.";
+		$valid = false;
+		
+	}
+
+	if(!$valid)
+	{
+		$error = "<h1 style='text-align: center;'>You are already working this shift and/or are not trained for this job code.</h1>";
 		include "includes/error.html.php";
 		exit();
 	}
@@ -49,7 +54,8 @@ if(isset($_POST['empid']))
 				JobCode = :newjobcode,
 				EmpComment = :newcomment,
 				OTBlock = :newotblock,
-				TStamp = :newtstamp";
+				TStamp = :newtstamp,
+				Awarded = 0";
 			$statement = $pdo->prepare($sql);
 			$statement->bindvalue(":newempid", $_POST["empid"]);
 			$statement->bindvalue(":newdate", $_GET['subdate']);

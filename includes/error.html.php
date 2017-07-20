@@ -13,5 +13,8 @@
 </head>
 <body>
 	<?php echo $error; ?>
+	<div class="centered">
+		<a class="btn btn-primary" style="text-align: center;" href="../EVOSStest/">Home</a>
+	</div>
 </body>
 </html>

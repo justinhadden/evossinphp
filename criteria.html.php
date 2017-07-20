@@ -21,7 +21,7 @@
 <form action="?" method="post">
     <h2 class="centered">Datepicker</h2>
     <div class="centered form-group">
-        <input id="datepicker" name="date"></input>
+        <input id="datepicker" name="date" required></input>
     </div>
 
     <h2 class="centered">Selectmenu</h2>
