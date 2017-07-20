@@ -19,7 +19,6 @@ foreach($OTNeeds as $need)
 
     $eligibleEmps = getEligibleEmployees($need['JobCode'], $needShiftCode);
 
-    print_r($eligibleEmps);
     foreach($eligibleEmps as $key => $employee)
     {
         foreach($OTSubmissions as $submission)
@@ -36,7 +35,6 @@ foreach($OTNeeds as $need)
             }
         }
     }
-    print_r($eligibleEmps);
 
     $EmpsSubmitted = [];
 
@@ -58,6 +56,8 @@ foreach($OTNeeds as $need)
             }
         }
     }
+
+    print_r($mostEligible);
 
     if($found)
     {
