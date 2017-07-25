@@ -32,7 +32,7 @@ foreach($OTNeeds as $need)
 
     foreach($applicableSubmissions as $submission)
     {
-        $employee = getEmployee($submission['EmpID'])
+        $employee = getEmployee($submission['EmpID']);
         if($mostEligibleEmployee == NULL)
         {
             $mostEligibleEmployee = $employee;
