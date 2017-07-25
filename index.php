@@ -25,6 +25,7 @@ if(isset($_POST['empid']))
 		include "includes/error.html.php";
 		exit();
 	}
+	
 	foreach($results as $row)
 	{
 		$empShiftCode = $row['ShiftCode'];
@@ -61,7 +62,7 @@ if(isset($_POST['empid']))
 			$statement->bindvalue(":newdate", $_GET['subdate']);
 			$statement->bindvalue(":newshift", $_GET['shift']);
 			$statement->bindvalue(":newjobcode", $_GET['jobcode']);
-			$statement->bindvalue(":newcomment", "Relief");
+			$statement->bindvalue(":newcomment", $_POST['empcomment']);
 			$statement->bindvalue(":newotblock", 2);
 			$statement->bindvalue(":newtstamp", date('Y-m-d H:i:s'));
 			$statement->execute();

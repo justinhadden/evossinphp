@@ -55,3 +55,9 @@ CREATE TABLE OvertimeNeed(
     PRIMARY KEY(OTNeedID),
     FOREIGN KEY(SupID) REFERENCES Supervisor (SupID) ON DELETE CASCADE
 )ENGINE=INNODB;
+
+CREATE INDEX emplpoyee_index
+ON Employee(LastName)
+
+CREATE INDEX supervisor_index
+ON Supervisor(LastName)

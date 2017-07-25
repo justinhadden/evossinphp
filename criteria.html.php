@@ -93,10 +93,5 @@
         <input class="btn btn-primary btn-lg" type="submit" value="Submit">
     </div>
 </form>
-<?php
-    if(isset($_POST)){
-        print_r($_POST);
-    }
-?>
 </body>
 </html>

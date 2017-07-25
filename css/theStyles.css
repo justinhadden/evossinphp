@@ -25,3 +25,6 @@ table, th, td {
     height: 50px;
 }
 
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}

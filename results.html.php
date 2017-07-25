@@ -5,11 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>EVOSS results</title>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/theStyles.css">
-	<script src="./js/jquery-3.1.1.min.js"></script>
-	<script src="./js/bootstrap.min.js"></script>
-	<script src="./js/myjs.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="js/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/theStyles.css">
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/myjs.js"></script>
 </head>
 <body>
 	<h2><?php echo $_POST['date']." | ".$_POST['shiftnum']." | ".$_POST['jobcode']." | ".$calShiftCode ?></h2>
@@ -56,10 +59,14 @@
 		
 	</table>
 
-	<form <?php echo "action='?subdate=".$_POST['date']."&shift=".$_POST['shiftnum']."&jobcode=".$_POST['jobcode']."&shiftcode=".$calShiftCode."'"; ?> method="post">
+	<form class="theform" <?php echo "action='?subdate=".$_POST['date']."&shift=".$_POST['shiftnum']."&jobcode=".$_POST['jobcode']."&shiftcode=".$calShiftCode."'"; ?> method="post">
+		<p>Please enter your comment/preferred work area.</p>
+		<input type="text" name="empcomment">
 		<input type="text" name="empid">
-		<input class="btn btn-primary" type="submit" value="Submit">
-		<a href="?home" class="btn btn-primary">Home</a>
-	</form>	
+		<button type="submit">Submit</button>
+	</form>
+	<a id="clickme" href="#" class="btn btn-primary">Submit</a>	
+	<a href="?home" class="btn btn-primary">Home</a>
+
 </body>
 </html>
