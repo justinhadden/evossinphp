@@ -120,6 +120,7 @@ function getTodaysSubmissions()
         fwrite($myfile, $e);
         exit();
     }
+    
     return $OTSubmissions;
 }
 
@@ -142,8 +143,31 @@ function getEligibleEmployees($needJobCode, $needShiftCode)
         fwrite($myfile, $e);
         exit();
     }
-
     return $results;
+}
+
+//Get a single employee from employee table
+function getEmployee($empID)
+{
+    include "includes/dbconnection.php";
+    try
+    {
+        $statement = $pdo->query("SELECT EmpID,ShiftCode,JobCode,OTHoursWorked,OPOTHours,DeptSeniority
+            FROM employee
+            WHERE EmpID = '$empID'");
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e)
+    {
+        $myfile = fopen("SingleEmp.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+    }
+    foreach($results as $row)
+    {
+        $employee = $row;
+    }
+    return $employee;
 }
 
 //Given a date and a shift number this will return the job code that will be working the shift. !!Date must be after 2016-01-20!!
