@@ -12,7 +12,7 @@ $Employees = getAllEmployees();
 foreach($OTNeeds as $need)
 {
     $shiftCode = calSchedule($need['OTDate'], $need['Shift']);
-    $eligibleEmps = getEligibleEmpployees($need['JobCode'], $shiftCode);
+    $eligibleEmps = getEligibleEmployees($need['JobCode'], $shiftCode);
     
     $submittedEmps = [];
     $applicableSubmissions = [];
