@@ -170,6 +170,30 @@ function getEmployee($empID)
     return $employee;
 }
 
+function getApplicableSubmissions($needSlot)
+{
+	include "includes/dbconnection.php";
+    try
+    {
+        $statement = $pdo->query("SELECT SubID,concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
+            SubmissionDate,EmpComment,employee.EmpID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,SubID,Awarded 
+            FROM submission
+            WHERE SubmissionDate <= CURDATE()
+			and EmpSubmission = '$needSlot'
+            ORDER BY OTHoursWorked+OPOTHours,DeptSeniority");
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e)
+    {
+        $myfile = fopen("EligibleEmps.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+    }
+    return $results;
+	
+	
+}
+
 //Given a date and a shift number this will return the job code that will be working the shift. !!Date must be after 2016-01-20!!
 function calSchedule($date, $shiftNum)
 {

@@ -5,8 +5,7 @@ include "includes/functions.php";
 
 //These functions are explained in the includes/functions.php script
 $OTNeeds = getTodaysNeeds();
-$OTSubmissions = getTodaysSubmissions();
-$Employees = getAllEmployees();
+$chargedEmployees = [];
 
 //Match OTNeeds with Submissions
 foreach($OTNeeds as $need)
@@ -14,16 +13,7 @@ foreach($OTNeeds as $need)
     $shiftCode = calSchedule($need['OTDate'], $need['Shift']);
     $eligibleEmps = getEligibleEmployees($need['JobCode'], $shiftCode);
     
-    $submittedEmps = [];
-    $applicableSubmissions = [];
-
-    foreach($OTSubmissions as $submission)
-    {
-        if($submission['EmpSubmission'] == $need['Slot'])
-        {
-            array_push($applicableSubmissions, $submission);
-        }
-    }
+    $applicableSubmissions = getApplicableSubmissions($need['Slot']);
 
     $mostEligibleEmployee;
     $mostEligibleSubmission;
@@ -33,7 +23,15 @@ foreach($OTNeeds as $need)
     foreach($applicableSubmissions as $submission)
     {
         $employee = getEmployee($submission['EmpID']);
-        if($mostEligibleEmployee == NULL)
+		foreach($OTNeeds as $thisNeed)
+		{
+			if($submission['SubID'] == $thisNeed['submissionid']
+			{
+				
+			}
+			
+		}
+        if(!isset($mostEligibleEmployee))
         {
             $mostEligibleEmployee = $employee;
         }
