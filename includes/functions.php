@@ -307,10 +307,10 @@ function calSchedule($date, $shiftNum)
 {
     //Reference date for calculating ShiftCode
     $baseDate = new DateTime("2016-01-20");
-	echo (string)$baseDate."\n";
-	echo $date."\n";
+	$calDate = new DateTime((string)$date);
+	
     //Get difference between argument date and reference date
-    $calDiff = $date->diff($baseDate)->format("%a");
+    $calDiff = $calDate->diff($baseDate)->format("%a");
 
     //Get day into shift schedule rotation
     $daysIntoRot = ($calDiff % 28);
