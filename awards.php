@@ -12,17 +12,18 @@ $chargedEmployees = [];
 foreach($OTNeeds as $need)
 {
 	print_r($need);
+	$applicable = true;
     $shiftCode = calSchedule($need['OTDate'], $need['Shift']);
     $eligibleEmps = getEligibleEmployees($need['JobCode'], $shiftCode);
     
     $applicableSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode']);
 	if(empty($applicableSubmissions))
 	{
-		break;
+		$applicable = false;
 	}
     $mostEligibleEmployee;
     $mostEligibleSubmission;
-	if(!empty($applicableSubmissions))
+	if($applicable)
 	{
 		foreach($applicableSubmissions as $submission)
 		{	
