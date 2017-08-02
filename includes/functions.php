@@ -87,7 +87,7 @@ function getTodaysNeeds()
     include "includes/dbconnection.php";
     try
     {
-        $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode,OTNeedID
+        $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode,ID
             FROM overtimeneed
             WHERE OTDate <= CURDATE() + 2";
         $OTNeeds = $pdo->query($sql);    
@@ -108,9 +108,9 @@ function getTodaysSubmissions()
     try
     {
         $sql = "SELECT concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
-            SubmissionDate,EmpComment,employee.EmpID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,SubID,Awarded
+            SubmissionDate,EmpComment,employee.ID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,ID,Awarded
             FROM employee,submission
-            WHERE employee.EmpID=submission.EmpID
+            WHERE employee.ID=submission.EmpID
             AND SubmissionDate <= CURDATE() + 2";
         $OTSubmissions = $pdo->query($sql);    
     }
@@ -130,7 +130,7 @@ function getEligibleEmployees($needJobCode, $needShiftCode)
     include "includes/dbconnection.php";
     try
     {
-        $statement = $pdo->query("SELECT EmpID,ShiftCode,JobCode,OTHoursWorked,OPOTHours,DeptSeniority
+        $statement = $pdo->query("SELECT ID,ShiftCode,JobCode,OTHoursWorked,OPOTHours,DeptSeniority
             FROM employee
             WHERE JobCode = '$needJobCode'
             AND ShiftCode != '$needShiftCode'
@@ -152,9 +152,9 @@ function getEmployee($empID)
     include "includes/dbconnection.php";
     try
     {
-        $statement = $pdo->query("SELECT EmpID,ShiftCode,JobCode,OTHoursWorked,OPOTHours,DeptSeniority
+        $statement = $pdo->query("SELECT ID,ShiftCode,JobCode,OTHoursWorked,OPOTHours,DeptSeniority
             FROM employee
-            WHERE EmpID = '$empID'");
+            WHERE ID = '$empID'");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     catch(PDOException $e)
@@ -175,9 +175,9 @@ function getApplicableSubmissions($needSlot)
 	include "includes/dbconnection.php";
     try
     {
-        $statement = $pdo->query("SELECT SubID,concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
-            SubmissionDate,EmpComment,employee.EmpID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,SubID,Awarded 
-            FROM submission
+        $statement = $pdo->query("SELECT submission.ID,concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
+            SubmissionDate,EmpComment,employee.ID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,Awarded 
+            FROM submission,employee
             WHERE SubmissionDate <= CURDATE()
 			and EmpSubmission = '$needSlot'
 			and awarded = 0;
