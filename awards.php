@@ -62,11 +62,11 @@ foreach($OTNeeds as $need)
 		}
 	}
 	$awardedEmployee;
-	$awarding = $applicableSubmissions[0];
-	if(!empty($applicableSubmissions))
+	foreach($applicableSubmissions as $submission)
 	{
 		updateNeed($awarding['ID'], $need['ID']);
 		$awardedEmployee = $awarding['EmpID'];
+		break;
 	}
 	
 	foreach($eligibleEmps as $employee)
