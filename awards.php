@@ -5,6 +5,7 @@ include "includes/functions.php";
 
 //These functions are explained in the includes/functions.php script
 $OTNeeds = getTodaysNeeds();
+print_r($OTNeeds);
 $chargedEmployees = [];
 
 //Match OTNeeds with Submissions
