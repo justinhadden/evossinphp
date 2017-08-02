@@ -64,6 +64,7 @@ foreach($OTNeeds as $need)
 			}
 		}
 	}
+
 	$awardedEmployee;
 	$awarding;
 	foreach($applicableSubmissions as $submission)
@@ -76,7 +77,17 @@ foreach($OTNeeds as $need)
 	
 	foreach($eligibleEmps as $employee)
 	{
-		if($employee['ID'] != $awardedEmployee)
+		if(!empty($awardedEmployee))
+		{
+			if($employee['ID'] != $awardedEmployee)
+			{
+				$tempArray = [];
+				array_push($tempArray,$employee['ID']);
+				array_push($tempArray,$awarding['OTBlock']);
+				array_push($chargedEmployees, $tempArray);
+			}
+		}
+		else
 		{
 			$tempArray = [];
 			array_push($tempArray,$employee['ID']);
