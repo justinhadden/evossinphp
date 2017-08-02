@@ -17,42 +17,43 @@ foreach($OTNeeds as $need)
 
     $mostEligibleEmployee;
     $mostEligibleSubmission;
-
-    foreach($applicableSubmissions as $submission)
-    {	
-		$applicable = true;
-        $employee = getEmployee($submission['EmpID']);
-		foreach($OTNeeds as $thisNeed)
-		{
-			$thisSubmission = getSubmission($thisNeed['SubmissionID']);
-			if($employee['ID'] == $thisSubmission['EmpID'])
+	if(!empty($applicableSubmissions))
+	{
+		foreach($applicableSubmissions as $submission)
+		{	
+			$applicable = true;
+			$employee = getEmployee($submission['EmpID']);
+			foreach($OTNeeds as $thisNeed)
 			{
-				$key = array_search($submission['ID'], $applicableSubmissions);
-				unset($applicableSubmissions[$key]);
-				$applicable = false;
-				break;
+				$thisSubmission = getSubmission($thisNeed['SubmissionID']);
+				if($employee['ID'] == $thisSubmission['EmpID'])
+				{
+					$key = array_search($submission['ID'], $applicableSubmissions);
+					unset($applicableSubmissions[$key]);
+					$applicable = false;
+					break;
+				}
+			}
+			$needShift = $need['Shift'];
+			$needDate = new DateTime($need['OTDate']);
+			if($needShift == 1)
+			{
+				$needShift = 4;
+				$needDate = strtotime('-1 days',$needDate = time());
+			}
+			
+			if($applicable)
+			{
+				$calShiftCode = $calSchedule($needDate,$needShift);
+				if($calShiftCode = $employee['ShiftCode'])
+				{
+					$key = array_search($submission['ID'], $applicableSubmissions);
+					unset($applicableSubmissions[$key]);
+					$applicable = false;
+				}
 			}
 		}
-		$needShift = $need['Shift'];
-		$needDate = new DateTime($need['OTDate']);
-		if($needShift == 1)
-		{
-			$needShift = 4;
-			$needDate = strtotime('-1 days',$needDate = time());
-		}
-		
-		if($applicable)
-		{
-			$calShiftCode = $calSchedule($needDate,$needShift);
-			if($calShiftCode = $employee['ShiftCode'])
-			{
-				$key = array_search($submission['ID'], $applicableSubmissions);
-				unset($applicableSubmissions[$key]);
-				$applicable = false;
-			}
-		}
-    }
-	
+	}
 	$awardedEmployee;
 	$awarding = $applicableSubmissions[0];
 	if(!empty($applicableSubmissions))
