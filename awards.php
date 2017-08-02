@@ -26,8 +26,11 @@ foreach($OTNeeds as $need)
 			foreach($OTNeeds as $thisNeed)
 			{
 				$getSubmission = getSubmission($thisNeed['SubmissionID']);
-				print_r($getSubmission);
-				if($employee['ID'] == $thisSubmission['EmpID'])
+				if(empty($getSubmission))
+				{
+					break;
+				}
+				if($employee['ID'] == $getSubmission['EmpID'])
 				{
 					$key = array_search($submission['ID'], $applicableSubmissions);
 					unset($applicableSubmissions[$key]);
