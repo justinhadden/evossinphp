@@ -17,6 +17,7 @@ foreach($OTNeeds as $need)
 
     $mostEligibleEmployee;
     $mostEligibleSubmission;
+	print_r($applicableSubmissions);
 	if(!empty($applicableSubmissions))
 	{
 		foreach($applicableSubmissions as $submission)
