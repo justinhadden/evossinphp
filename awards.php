@@ -62,8 +62,10 @@ foreach($OTNeeds as $need)
 		}
 	}
 	$awardedEmployee;
+	$awarding;
 	foreach($applicableSubmissions as $submission)
 	{
+		$awarding = $submission;
 		updateNeed($awarding['ID'], $need['ID']);
 		$awardedEmployee = $awarding['EmpID'];
 		break;
