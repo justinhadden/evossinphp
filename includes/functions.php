@@ -307,7 +307,7 @@ function calSchedule($date, $shiftNum)
 {
     //Reference date for calculating ShiftCode
     $baseDate = new DateTime("2016-01-20");
-    $calDate = new DateTime($date);
+    $calDate = new DateTime(date_format($date,"m/d/Y"));
     //Get difference between argument date and reference date
     $calDiff = $calDate->diff($baseDate)->format("%a");
 
