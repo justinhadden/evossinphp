@@ -68,7 +68,7 @@ foreach($OTNeeds as $need)
 			$tempArray = [];
 			array_push($tempArray,$employee['ID']);
 			array_push($tempArray,$awarding['OTBlock']);
-			array_push($chargedEmployees, $teampArray);
+			array_push($chargedEmployees, $tempArray);
 		}
 	}
 	

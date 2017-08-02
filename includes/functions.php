@@ -179,7 +179,7 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode)
             SubmissionDate,EmpComment,employee.ID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,Awarded 
             FROM submission,employee
             WHERE SubmissionDate <= CURDATE()
-			and SubmissionDate = '$needSlot'
+			and SubmissionDate = '$needDate'
 			and Shift = '$needShift'
 			and submission.JobCode = '$needJobCode'
 			and awarded = 0;
@@ -217,6 +217,7 @@ function getSubmission($submissionID)
 
 function updateNeed($submissionID, $needID)
 {
+	include "includes/dbconnection.php";
 	try
 	{
 		$sql = "UPDATE overtimeneed SET
@@ -253,6 +254,7 @@ function updateNeed($submissionID, $needID)
 
 function updateEmployee($employeeID,$OTBlock)
 {
+	include "includes/dbconnection.php";
 	$hourAmount;
 	if($OTBlock == 2)
 	{	
