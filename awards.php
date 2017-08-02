@@ -14,7 +14,10 @@ foreach($OTNeeds as $need)
     $eligibleEmps = getEligibleEmployees($need['JobCode'], $shiftCode);
     
     $applicableSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode']);
-
+	if(empty($applicableSubmissions))
+	{
+		break;
+	}
     $mostEligibleEmployee;
     $mostEligibleSubmission;
 	if(!empty($applicableSubmissions))
