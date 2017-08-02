@@ -48,7 +48,7 @@ foreach($OTNeeds as $need)
 			
 			if($applicable)
 			{
-				$calShiftCode = $calSchedule($needDate,$needShift);
+				$calShiftCode = calSchedule($needDate,$needShift);
 				if($calShiftCode = $employee['ShiftCode'])
 				{
 					$key = array_search($submission['ID'], $applicableSubmissions);
