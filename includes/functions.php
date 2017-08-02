@@ -180,6 +180,7 @@ function getApplicableSubmissions($needSlot)
             FROM submission
             WHERE SubmissionDate <= CURDATE()
 			and EmpSubmission = '$needSlot'
+			and awarded = 0;
             ORDER BY OTHoursWorked+OPOTHours,DeptSeniority");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -191,7 +192,91 @@ function getApplicableSubmissions($needSlot)
     }
     return $results;
 	
+}
+
+function getSubmission($submissionID)
+{
+	include "includes/dbconnection.php";
+    try
+    {
+        $statement = $pdo->query("SELECT EmpID
+            FROM submission
+			WHERE ID = '$submissionID'");
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e)
+    {
+        $myfile = fopen("EligibleEmps.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+    }
+    return $results;	
+}	
+
+function updateNeed($submissionID, $needID)
+{
+	try
+	{
+		$sql = "UPDATE overtimeneed SET
+			SubmissionID = :newsubid
+			WHERE ID = :needID";
+		$statement = $pdo->prepare($sql);
+		$statement->bindvalue(":newsubid", $submissionID);
+		$statement->bindvalue(":needID", $needID);
+		$sttement->execute();
+	}
+	catch(PDOException as $e)
+	{
+		$myfile = fopen("updateNeed.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+	}
 	
+	try
+	{
+		$sql = "UPDATE submission SET
+			Awarded = 1
+			WHERE ID = :newsubid";
+		$statement = $pdo->prepare($sql);
+		$statement->bindvalue(":newsubid", $submissionID);
+		$sttement->execute();
+	}
+	catch(PDOException as $e)
+	{
+		$myfile = fopen("updateSub.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+	}
+}
+
+function updateEmployee($employeeID,$OTBlock)
+{
+	$hourAmount;
+	if($OTBlock == 2)
+	{	
+		$hourAmount = 8;
+	}
+	else
+	{
+		$hourAmount = 4;
+	}
+
+	try
+	{
+		$sql = "UPDATE employee SET
+			OPOTHours += :newhours
+			WHERE ID = :empID";
+		$statement = $pdo->prepare($sql);
+		$statement->bindvalue(":newhours", $hourAmount);
+		$statement->bindvalue(":empID", $employeeID);
+		$sttement->execute();
+	}
+	catch(PDOException as $e)
+	{
+		$myfile = fopen("updateEmp.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+	}	
 }
 
 //Given a date and a shift number this will return the job code that will be working the shift. !!Date must be after 2016-01-20!!
