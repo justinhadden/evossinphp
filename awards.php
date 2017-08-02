@@ -50,7 +50,7 @@ foreach($OTNeeds as $need)
 			{
 				$needShift = 4;
 				$timeDate = strtotime('-1 days',$needDate = time());
-				$needDate = date_format($timeDate,"Y-m-d");
+				$needDate = date("Y-m-d",$timeDate);
 			}
 			
 			if($applicable)
