@@ -264,11 +264,26 @@ function updateEmployee($employeeID,$OTBlock)
 	{
 		$hourAmount = 4;
 	}
-
+	try
+	{
+		 $statement = $pdo->query("SELECT OPOTHours
+            FROM employee
+			WHERE ID = '$employeeID'");
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	$hourAmount += $results['OPOTHours'];
+	
+	catch(PDOException $e)
+	{
+		$myfile = fopen("updateEmpHours.txt", "w");
+        fwrite($myfile, $e);
+        exit();
+	}
 	try
 	{
 		$sql = "UPDATE employee SET
-			OPOTHours += :newhours
+			OPOTHours = :newhours
 			WHERE ID = :empID";
 		$statement = $pdo->prepare($sql);
 		$statement->bindvalue(":newhours", $hourAmount);
