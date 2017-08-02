@@ -45,7 +45,7 @@ foreach($OTNeeds as $need)
 				}
 			}
 			$needShift = $need['Shift'];
-			$needDate = new DateTime($need['OTDate']);
+			$needDate = $need['OTDate'];
 			if($needShift == 1)
 			{
 				$needShift = 4;
