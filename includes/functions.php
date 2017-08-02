@@ -225,7 +225,7 @@ function updateNeed($submissionID, $needID)
 		$statement->bindvalue(":needID", $needID);
 		$sttement->execute();
 	}
-	catch(PDOException as $e)
+	catch(PDOException $e)
 	{
 		$myfile = fopen("updateNeed.txt", "w");
         fwrite($myfile, $e);
@@ -241,7 +241,7 @@ function updateNeed($submissionID, $needID)
 		$statement->bindvalue(":newsubid", $submissionID);
 		$sttement->execute();
 	}
-	catch(PDOException as $e)
+	catch(PDOException $e)
 	{
 		$myfile = fopen("updateSub.txt", "w");
         fwrite($myfile, $e);
@@ -271,7 +271,7 @@ function updateEmployee($employeeID,$OTBlock)
 		$statement->bindvalue(":empID", $employeeID);
 		$sttement->execute();
 	}
-	catch(PDOException as $e)
+	catch(PDOException $e)
 	{
 		$myfile = fopen("updateEmp.txt", "w");
         fwrite($myfile, $e);
