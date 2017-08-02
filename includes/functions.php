@@ -225,7 +225,7 @@ function updateNeed($submissionID, $needID)
 		$statement = $pdo->prepare($sql);
 		$statement->bindvalue(":newsubid", $submissionID);
 		$statement->bindvalue(":needID", $needID);
-		$sttement->execute();
+		$statement->execute();
 	}
 	catch(PDOException $e)
 	{
@@ -241,7 +241,7 @@ function updateNeed($submissionID, $needID)
 			WHERE ID = :newsubid";
 		$statement = $pdo->prepare($sql);
 		$statement->bindvalue(":newsubid", $submissionID);
-		$sttement->execute();
+		$statement->execute();
 	}
 	catch(PDOException $e)
 	{
@@ -271,7 +271,7 @@ function updateEmployee($employeeID,$OTBlock)
 		$statement = $pdo->prepare($sql);
 		$statement->bindvalue(":newhours", $hourAmount);
 		$statement->bindvalue(":empID", $employeeID);
-		$sttement->execute();
+		$statement->execute();
 	}
 	catch(PDOException $e)
 	{

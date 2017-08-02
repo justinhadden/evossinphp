@@ -18,8 +18,6 @@ foreach($OTNeeds as $need)
     $mostEligibleEmployee;
     $mostEligibleSubmission;
 
-    print_r($eligibleEmps);
-
     foreach($applicableSubmissions as $submission)
     {	
 		$applicable = true;
