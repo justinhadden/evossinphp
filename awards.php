@@ -17,7 +17,6 @@ foreach($OTNeeds as $need)
 
     $mostEligibleEmployee;
     $mostEligibleSubmission;
-	print_r($applicableSubmissions);
 	if(!empty($applicableSubmissions))
 	{
 		foreach($applicableSubmissions as $submission)
@@ -27,7 +26,7 @@ foreach($OTNeeds as $need)
 			foreach($OTNeeds as $thisNeed)
 			{
 				$getSubmission = getSubmission($thisNeed['SubmissionID']);
-				$thisSubmission = $getSubmission[0];
+				print_r($getSubmission);
 				if($employee['ID'] == $thisSubmission['EmpID'])
 				{
 					$key = array_search($submission['ID'], $applicableSubmissions);
