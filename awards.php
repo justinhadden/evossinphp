@@ -26,7 +26,7 @@ foreach($OTNeeds as $need)
         $employee = getEmployee($submission['EmpID']);
 		foreach($OTNeeds as $thisNeed)
 		{
-			$thisSubmission = getSubmission($thisNeed['SubmissionID'])
+			$thisSubmission = getSubmission($thisNeed['SubmissionID']);
 			if($employee['ID'] == $thisSubmission['EmpID'])
 			{
 				$key = array_search($submission['ID'], $applicableSubmissions);
@@ -36,7 +36,7 @@ foreach($OTNeeds as $need)
 			}
 		}
 		$needShift = $need['Shift'];
-		$needDate = new DateTime($need['OTDate'])
+		$needDate = new DateTime($need['OTDate']);
 		if($needShift == 1)
 		{
 			$needShift = 4;
