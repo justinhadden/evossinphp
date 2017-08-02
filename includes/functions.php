@@ -170,7 +170,7 @@ function getEmployee($empID)
     return $employee;
 }
 
-function getApplicableSubmissions($needSlot)
+function getApplicableSubmissions($needDate,$needShift,$needJobCode)
 {
 	include "includes/dbconnection.php";
     try
@@ -179,7 +179,9 @@ function getApplicableSubmissions($needSlot)
             SubmissionDate,EmpComment,employee.ID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,Awarded 
             FROM submission,employee
             WHERE SubmissionDate <= CURDATE()
-			and EmpSubmission = '$needSlot'
+			and SubmissionDate = '$needSlot'
+			and Shift = '$needShift'
+			and submission.JobCode = '$needJobCode'
 			and awarded = 0;
             ORDER BY OTHoursWorked+OPOTHours,DeptSeniority");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
