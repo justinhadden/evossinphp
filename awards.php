@@ -5,12 +5,13 @@ include "includes/functions.php";
 
 //These functions are explained in the includes/functions.php script
 $OTNeeds = getTodaysNeeds();
-print_r($OTNeeds);
+
 $chargedEmployees = [];
 
 //Match OTNeeds with Submissions
 foreach($OTNeeds as $need)
 {
+	print_r($need);
     $shiftCode = calSchedule($need['OTDate'], $need['Shift']);
     $eligibleEmps = getEligibleEmployees($need['JobCode'], $shiftCode);
     
