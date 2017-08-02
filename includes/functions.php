@@ -176,7 +176,7 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode)
     try
     {
         $statement = $pdo->query("SELECT submission.ID,concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
-            SubmissionDate,EmpComment,employee.ID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,Awarded 
+            SubmissionDate,EmpComment,EmpID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,deptSeniority,Awarded 
             FROM submission,employee
             WHERE SubmissionDate <= CURDATE()
 			and SubmissionDate = '$needDate'
