@@ -87,7 +87,7 @@ function getTodaysNeeds()
     include "includes/dbconnection.php";
     try
     {
-        $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode,ID,SubmissionID
+        $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,OTBlock,JobCode,ID,SubmissionID
             FROM overtimeneed
             WHERE OTDate <= CURDATE() + 2
 			and SubmissionID is null";
