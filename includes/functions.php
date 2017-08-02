@@ -89,7 +89,8 @@ function getTodaysNeeds()
     {
         $sql = "SELECT concat(OTDate,'-',Shift,'-',JobCode) AS Slot,OTDate,Shift,JobCode,ID,SubmissionID
             FROM overtimeneed
-            WHERE OTDate <= CURDATE() + 2";
+            WHERE OTDate <= CURDATE() + 2
+			and SubmissionID is null";
         $OTNeeds = $pdo->query($sql);    
     }
     catch(PDOException $e)
