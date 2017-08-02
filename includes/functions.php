@@ -281,7 +281,7 @@ function updateEmployee($employeeID,$OTBlock)
 	foreach($results as $row)
 	{
 		$hourAmount += $row['OPOTHours'];
-		break
+		break;
 	}
 	
 	try
