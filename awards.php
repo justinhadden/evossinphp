@@ -11,23 +11,50 @@ $chargedEmployees = [];
 //Match OTNeeds with Submissions
 foreach($OTNeeds as $need)
 {
+	echo "----------------------------------\n";
 	print_r($need);
+	echo "----------------------------------\n";
 	$applicable = true;
+	$found = false;
     $shiftCode = calSchedule($need['OTDate'], $need['Shift']);
+	
+	////* Calculate Off-Going date and shift */////
+	$offGoingShift = $need['Shift'];
+	$offGoingDate = $need['OTDate'];
+	if($needShift == 1)
+	{
+		$offGoingShift = 3;
+		$timeDate = strtotime('-1 days',$offGoingDate = time());
+		$offGoingDate = date("Y-m-d",$timeDate);
+	}
+	else
+	{
+		$offGoingShift = $offGoingShift - 1;
+	}	
+	
+	$offGoingShiftCode = calSchedule($offGoingDate,$offGoingShift);
+	
+	echo "\n".$shiftCode."\n";
+	echo "----------------------------------\n";
     $eligibleEmps = getEligibleEmployees($need['JobCode'], $shiftCode);
-    
-    $applicableSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode']);
-	if(empty($applicableSubmissions))
+	echo "--------Eligible Employees--------\n";
+    print_r($eligibleEmps);
+	echo "----------------------------------\n";
+    $oncomingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],"%",$ShiftCode);
+	$offGoingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],$offGoingShiftCode,$ShiftCode);
+	if(empty($oncomingSubmissions) || empty($offGoingSubmissions))
 	{
 		$applicable = false;
 	}
-    $mostEligibleEmployee;
-    $mostEligibleSubmission;
-	if($applicable)
+	echo "------Applicable Submissions------\n";
+	print_r($oncomingSubmissions);
+	echo "----------------------------------\n";
+
+	if($applicable && !$found)
 	{
-		foreach($applicableSubmissions as $submission)
+		var counter = 1;
+		foreach($oncomingSubmissions as $submission)
 		{	
-			$applicable = true;
 			$employee = getEmployee($submission['EmpID']);
 			foreach($OTNeeds as $thisNeed)
 			{
@@ -38,37 +65,19 @@ foreach($OTNeeds as $need)
 				}
 				if($employee['ID'] == $getSubmission['EmpID'])
 				{
-					$key = array_search($submission['ID'], $applicableSubmissions);
-					unset($applicableSubmissions[$key]);
+					$key = array_search($submission['ID'], $oncomingSubmissions);
+					unset($oncomingSubmissions[$key]);
 					$applicable = false;
 					break;
 				}
 			}
-			$needShift = $need['Shift'];
-			$needDate = $need['OTDate'];
-			if($needShift == 1)
-			{
-				$needShift = 4;
-				$timeDate = strtotime('-1 days',$needDate = time());
-				$needDate = date("Y-m-d",$timeDate);
-			}
 			
-			if($applicable)
-			{
-				$calShiftCode = calSchedule($needDate,$needShift);
-				if($calShiftCode = $employee['ShiftCode'])
-				{
-					$key = array_search($submission['ID'], $applicableSubmissions);
-					unset($applicableSubmissions[$key]);
-					$applicable = false;
-				}
-			}
 		}
 	}
 
 	$awardedEmployee;
 	$awarding;
-	foreach($applicableSubmissions as $submission)
+	foreach($oncomingSubmissions as $submission)
 	{
 		$awarding = $submission;
 		updateNeed($awarding['ID'], $need['ID']);

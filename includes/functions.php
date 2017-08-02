@@ -171,7 +171,7 @@ function getEmployee($empID)
     return $employee;
 }
 
-function getApplicableSubmissions($needDate,$needShift,$needJobCode)
+function getApplicableSubmissions($needDate,$needShift,$needJobCode,$offGoingShiftCode,$shiftCode)
 {
 	include "includes/dbconnection.php";
     try
@@ -184,6 +184,8 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode)
 			and Shift = '$needShift'
 			and submission.JobCode = '$needJobCode'
 			and awarded = 0;
+			and ShiftCode != '$shiftCode'
+			and ShiftCode = '$offGoingShiftcode'
             ORDER BY OTHoursWorked+OPOTHours,DeptSeniority");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
