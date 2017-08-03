@@ -42,7 +42,7 @@ foreach($OTNeeds as $need)
 	echo "----------------------------------\n";
     //$oncomingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],"%",$shiftCode);
 	$offGoingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],$offGoingShiftCode,$shiftCode);
-	$oncomingSubmissions = $offGoingSubissions;
+	$oncomingSubmissions = $offGoingSubmissions;
 	if(empty($oncomingSubmissions) || empty($offGoingSubmissions))
 	{
 		$applicable = false;
