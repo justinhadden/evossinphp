@@ -180,12 +180,12 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode,$offGoingShi
 			OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,DeptSeniority,Awarded 
             FROM submission,employee
 			WHERE employee.ID=submission.EmpID
-			and SubmissionDate = '$needDate'
-			and Shift = '$needShift'
+			and `SubmissionDate` = '$needDate'
+			and `Shift` = '$needShift'
 			and submission.JobCode = '$needJobCode'
-			and awarded = 0;
-			and ShiftCode != '$shiftCode'
-            ORDER BY CASE WHEN ShiftCode = '$offGoingShiftCode' THEN 1 ELSE 2 END, (OTHoursWorked+OPOTHours),DeptSeniority");
+			and `awarded` = 0;
+			and `ShiftCode` != '$shiftCode'
+            ORDER BY CASE WHEN `ShiftCode` = '$offGoingShiftCode' THEN 1 ELSE 2 END, (`OTHoursWorked`+`OPOTHours`),`DeptSeniority`");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     catch(PDOException $e)
