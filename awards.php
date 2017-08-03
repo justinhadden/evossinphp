@@ -47,6 +47,9 @@ foreach($OTNeeds as $need)
 		$applicable = false;
 	}
 	echo "------Applicable Submissions------\n";
+	print_r($offGoingSubmissions);
+	echo "----------------------------------\n";
+	echo "------Applicable Submissions------\n";
 	print_r($oncomingSubmissions);
 	echo "----------------------------------\n";
 	$awardedSubmission;
