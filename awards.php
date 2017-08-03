@@ -49,11 +49,11 @@ foreach($OTNeeds as $need)
 	echo "------Applicable Submissions------\n";
 	print_r($oncomingSubmissions);
 	echo "----------------------------------\n";
-
+	$awardedSubmission;
+	$awardedEmployee;
 	if($applicable && !$found)
 	{
-		var counter = 1;
-		foreach($oncomingSubmissions as $submission)
+		foreach($offGoingSubmissions as $submission)
 		{	
 			$employee = getEmployee($submission['EmpID']);
 			foreach($OTNeeds as $thisNeed)
@@ -70,20 +70,49 @@ foreach($OTNeeds as $need)
 					$applicable = false;
 					break;
 				}
+				else
+				{
+					$awardedSubmission = $submission['ID'];
+					$awardedEmployee = $employee['ID'];
+					$found = true;
+					break;
+				}
 			}
-			
+		}
+		if(!$found)
+		{
+			foreach($oncomingSubmissions as $submission)
+			{	
+				$employee = getEmployee($submission['EmpID']);
+				foreach($OTNeeds as $thisNeed)
+				{
+					$getSubmission = getSubmission($thisNeed['SubmissionID']);
+					if(empty($getSubmission))
+					{
+						break;
+					}
+					if($employee['ID'] == $getSubmission['EmpID'])
+					{
+						$key = array_search($submission['ID'], $oncomingSubmissions);
+						unset($oncomingSubmissions[$key]);
+						$applicable = false;
+						break;
+					}
+					else
+					{
+						$awardedSubmission = $submission['ID'];
+						$awardedEmployee = $employee['ID'];
+						$found = true;
+						break;
+					}
+				}
+				
+			}
 		}
 	}
-
-	$awardedEmployee;
-	$awarding;
-	foreach($oncomingSubmissions as $submission)
-	{
-		$awarding = $submission;
-		updateNeed($awarding['ID'], $need['ID']);
-		$awardedEmployee = $awarding['EmpID'];
-		break;
-	}
+	
+	updateNeed($awardedSubmission,$need['ID']);
+	updateEmployee($awardedEmployee,$need['OTBlock']);
 	
 	foreach($eligibleEmps as $employee)
 	{
