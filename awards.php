@@ -40,8 +40,9 @@ foreach($OTNeeds as $need)
 	echo "--------Eligible Employees--------\n";
     print_r($eligibleEmps);
 	echo "----------------------------------\n";
-    $oncomingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],"%",$shiftCode);
+    //$oncomingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],"%",$shiftCode);
 	$offGoingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],$offGoingShiftCode,$shiftCode);
+	$oncomingSubmissions = $offGoingSubissions;
 	if(empty($oncomingSubmissions) || empty($offGoingSubmissions))
 	{
 		$applicable = false;
@@ -50,7 +51,7 @@ foreach($OTNeeds as $need)
 	print_r($offGoingSubmissions);
 	echo "----------------------------------\n";
 	echo "------Applicable Submissions------\n";
-	print_r($oncomingSubmissions);
+	//print_r($oncomingSubmissions);
 	echo "----------------------------------\n";
 	$awardedSubmission;
 	$awardedEmployee;
