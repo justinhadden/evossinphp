@@ -177,7 +177,7 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode,$offGoingShi
     try
     {
         $statement = $pdo->query("SELECT submission.ID,SubmissionDate,EmpComment,EmpID,
-			OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,deptSeniority,Awarded 
+			OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,DeptSeniority,Awarded 
             FROM submission,employee
 			WHERE employee.ID=submission.EmpID
 			and SubmissionDate = '$needDate'

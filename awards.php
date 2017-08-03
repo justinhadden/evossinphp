@@ -144,7 +144,7 @@ foreach($OTNeeds as $need)
 	
 	foreach($chargedEmployees as $employee)
 	{
-		updateEmployee($employee[0],$employee[1]);
+		//updateEmployee($employee[0],$employee[1]);
 	}
 }
 
@@ -152,7 +152,7 @@ if(!empty($chargedEmployees))
 {
 	foreach($chargedEmployees as $employee)
 	{
-		updateEmployee($employee[0],$employee[1]);
+		//updateEmployee($employee[0],$employee[1]);
 	}
 }
 
