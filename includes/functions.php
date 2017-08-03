@@ -176,16 +176,16 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode,$offGoingShi
 	include "includes/dbconnection.php";
     try
     {
-        $statement = $pdo->query("SELECT submission.ID,concat(SubmissionDate,'-',Shift,'-',submission.JobCode) AS EmpSubmission,
-            SubmissionDate,EmpComment,EmpID,OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,deptSeniority,Awarded 
+        $statement = $pdo->query("SELECT submission.ID,SubmissionDate,EmpComment,EmpID,
+			OTHoursWorked,OPOTHours,Shift,submission.JobCode,OTBlock,deptSeniority,Awarded 
             FROM submission,employee
-            WHERE SubmissionDate <= CURDATE()
+			WHERE employee.ID=submission.EmpID
 			and SubmissionDate = '$needDate'
 			and Shift = '$needShift'
 			and submission.JobCode = '$needJobCode'
 			and awarded = 0;
 			and ShiftCode != '$shiftCode'
-			and ShiftCode = '$offGoingShiftCode'
+			and ShiftCode LIKE '$offGoingShiftCode'
             ORDER BY OTHoursWorked+OPOTHours,DeptSeniority");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
