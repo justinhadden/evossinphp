@@ -21,7 +21,7 @@ foreach($OTNeeds as $need)
 	////* Calculate Off-Going date and shift */////
 	$offGoingShift = $need['Shift'];
 	$offGoingDate = $need['OTDate'];
-	if($needShift == 1)
+	if($offGoingShift == 1)
 	{
 		$offGoingShift = 3;
 		$timeDate = strtotime('-1 days',$offGoingDate = time());
@@ -40,8 +40,8 @@ foreach($OTNeeds as $need)
 	echo "--------Eligible Employees--------\n";
     print_r($eligibleEmps);
 	echo "----------------------------------\n";
-    $oncomingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],"%",$ShiftCode);
-	$offGoingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],$offGoingShiftCode,$ShiftCode);
+    $oncomingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],"%",$shiftCode);
+	$offGoingSubmissions = getApplicableSubmissions($need['OTDate'],$need['Shift'],$need['JobCode'],$offGoingShiftCode,$shiftCode);
 	if(empty($oncomingSubmissions) || empty($offGoingSubmissions))
 	{
 		$applicable = false;
@@ -111,8 +111,11 @@ foreach($OTNeeds as $need)
 		}
 	}
 	
-	updateNeed($awardedSubmission,$need['ID']);
-	updateEmployee($awardedEmployee,$need['OTBlock']);
+	if($found)
+	{
+		updateNeed($awardedSubmission,$need['ID']);
+		updateEmployee($awardedEmployee,$need['OTBlock']);
+	}
 	
 	foreach($eligibleEmps as $employee)
 	{

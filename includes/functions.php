@@ -185,7 +185,7 @@ function getApplicableSubmissions($needDate,$needShift,$needJobCode,$offGoingShi
 			and submission.JobCode = '$needJobCode'
 			and awarded = 0;
 			and ShiftCode != '$shiftCode'
-			and ShiftCode = '$offGoingShiftcode'
+			and ShiftCode = '$offGoingShiftCode'
             ORDER BY OTHoursWorked+OPOTHours,DeptSeniority");
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
     }
