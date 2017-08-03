@@ -117,8 +117,8 @@ foreach($OTNeeds as $need)
 	
 	if($found)
 	{
-		updateNeed($awardedSubmission,$need['ID']);
-		updateEmployee($awardedEmployee,$need['OTBlock']);
+		//updateNeed($awardedSubmission,$need['ID']);
+		//updateEmployee($awardedEmployee,$need['OTBlock']);
 	}
 	
 	foreach($eligibleEmps as $employee)
